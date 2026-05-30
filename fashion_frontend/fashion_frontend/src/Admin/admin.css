@@ -1,0 +1,365 @@
+/* src/Admin/admin.css
+   ALL rules scoped to .admin-panel — zero conflict with user app styles */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:wght@400;600&display=swap');
+
+@keyframes adminToastIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes adminFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes adminSlideUp { from { transform: translateY(14px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes adminSpin    { to   { transform: rotate(360deg); } }
+
+/* ── Reset inside admin only ── */
+.admin-panel * { box-sizing: border-box; }
+.admin-panel, .admin-overlay * { font-family: 'DM Sans', sans-serif; }
+
+/* ── Layout ── */
+.admin-panel {
+  display: flex;
+  min-height: 100vh;
+  background: #0a0a0f;
+  color: #f0eff5;
+  --a-bg:      #0a0a0f;
+  --a-surface: #111118;
+  --a-surface2:#18181f;
+  --a-border:  rgba(255,255,255,0.07);
+  --a-border2: rgba(255,255,255,0.13);
+  --a-muted:   #7c7b8a;
+  --a-accent:  #c9a96e;
+  --a-accent2: #e8c98a;
+  --a-green:   #52c07a;
+  --a-red:     #e05252;
+  --a-blue:    #5b8df5;
+  --a-radius:  10px;
+  --a-sidebar: 240px;
+  --a-transition: 0.18s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── Sidebar ── */
+.admin-sidebar {
+  width: var(--a-sidebar);
+  min-height: 100vh;
+  background: var(--a-surface);
+  border-right: 1px solid var(--a-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+}
+.admin-logo {
+  padding: 22px 20px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--a-border);
+}
+.admin-logo-icon {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: var(--a-accent);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.admin-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px; color: #f0eff5;
+}
+.admin-nav {
+  flex: 1; padding: 16px 12px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.admin-nav-section {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; color: var(--a-muted);
+  padding: 6px 10px; margin-bottom: 4px;
+}
+.admin-nav-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 9px;
+  background: transparent; border: none;
+  color: var(--a-muted); font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer; transition: var(--a-transition);
+  text-align: left; width: 100%;
+}
+.admin-nav-btn:hover { color: #f0eff5; background: rgba(255,255,255,0.05); }
+.admin-nav-btn.active {
+  background: rgba(201,169,110,0.12);
+  color: var(--a-accent); font-weight: 600;
+}
+.admin-sidebar-bottom {
+  padding: 16px 16px 20px;
+  border-top: 1px solid var(--a-border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.admin-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--a-accent); color: #0a0a0f;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.admin-logout-btn {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--a-muted); padding: 6px; border-radius: 8px;
+  transition: var(--a-transition); display: flex; align-items: center;
+}
+.admin-logout-btn:hover { color: var(--a-red); }
+
+/* ── Main content ── */
+.admin-main {
+  margin-left: var(--a-sidebar);
+  flex: 1; min-height: 100vh;
+  background: var(--a-bg);
+  overflow-x: hidden;
+}
+.admin-page { padding: 28px 32px; max-width: 1200px; }
+.admin-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 400; color: #f0eff5; margin-bottom: 4px;
+}
+.admin-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 400; color: #f0eff5;
+}
+.admin-page-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; margin-bottom: 24px;
+}
+
+/* ── Card ── */
+.admin-card {
+  background: var(--a-surface);
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-radius);
+  padding: 20px;
+}
+
+/* ── Buttons ── */
+.admin-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px; border-radius: var(--a-radius);
+  font: 500 13px 'DM Sans', sans-serif;
+  cursor: pointer; transition: var(--a-transition);
+  border: none; outline: none; text-decoration: none;
+}
+.admin-btn-primary { background: var(--a-accent); color: #0a0a0f; }
+.admin-btn-primary:hover { background: var(--a-accent2); transform: translateY(-1px); }
+.admin-btn-ghost {
+  background: transparent; color: var(--a-muted);
+  border: 1px solid var(--a-border);
+}
+.admin-btn-ghost:hover { border-color: var(--a-border2); color: #f0eff5; background: var(--a-surface2); }
+.admin-btn-danger {
+  background: rgba(224,82,82,0.12); color: var(--a-red);
+  border: 1px solid rgba(224,82,82,0.2);
+}
+.admin-btn-danger:hover { background: rgba(224,82,82,0.2); }
+.admin-btn-sm { padding: 5px 12px; font-size: 12px; }
+
+/* ── Input / Select / Textarea ── */
+.admin-input {
+  width: 100%; padding: 9px 12px;
+  background: var(--a-surface2); border: 1px solid var(--a-border);
+  border-radius: var(--a-radius); color: #f0eff5;
+  font: 400 13px 'DM Sans', sans-serif; outline: none;
+  transition: border-color var(--a-transition);
+}
+.admin-input:focus { border-color: var(--a-accent); }
+.admin-input::placeholder { color: var(--a-muted); }
+.admin-label {
+  font-size: 12px; color: var(--a-muted); margin-bottom: 6px;
+  display: block; font-weight: 500; letter-spacing: 0.03em;
+}
+
+/* ── Table ── */
+.admin-table-wrap { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table th {
+  font-size: 11px; font-weight: 600; color: var(--a-muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 10px 14px; text-align: left;
+  border-bottom: 1px solid var(--a-border);
+}
+.admin-table td {
+  padding: 12px 14px; border-bottom: 1px solid var(--a-border);
+  font-size: 13px; color: #f0eff5;
+}
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tbody tr { transition: background var(--a-transition); }
+.admin-table tbody tr:hover { background: var(--a-surface2); }
+
+/* ── Badge ── */
+.admin-badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 99px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+}
+.admin-badge-green  { background: rgba(82,192,122,0.12);  color: var(--a-green); }
+.admin-badge-yellow { background: rgba(201,169,110,0.15); color: var(--a-accent2); }
+.admin-badge-red    { background: rgba(224,82,82,0.12);   color: var(--a-red); }
+.admin-badge-blue   { background: rgba(91,141,245,0.12);  color: var(--a-blue); }
+.admin-badge-gray   { background: rgba(255,255,255,0.06); color: var(--a-muted); }
+
+/* ── Modal overlay ── */
+.admin-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(4px); z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  animation: adminFadeIn 0.15s ease;
+}
+.admin-modal {
+  background: var(--a-surface); border: 1px solid var(--a-border2);
+  border-radius: 14px; padding: 28px;
+  width: 100%; max-width: 520px;
+  max-height: 90vh; overflow-y: auto;
+  animation: adminSlideUp 0.2s ease;
+  color: #f0eff5;
+}
+.admin-modal h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 400; margin-bottom: 20px; color: #f0eff5;
+}
+
+/* ── Spinner ── */
+.admin-spinner {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--a-border2);
+  border-top-color: var(--a-accent);
+  animation: adminSpin 0.6s linear infinite;
+  display: inline-block; flex-shrink: 0;
+}
+
+/* ── Stats grid ── */
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.admin-stat-card {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.admin-stat-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 6px;
+}
+.admin-stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 400; color: #f0eff5;
+}
+.admin-stat-label { font-size: 12px; color: var(--a-muted); font-weight: 500; }
+.admin-stat-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; opacity: 0.4; }
+
+/* ── Filter tabs ── */
+.admin-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.admin-tab {
+  padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 500;
+  background: transparent; border: 1px solid var(--a-border);
+  color: var(--a-muted); cursor: pointer; transition: var(--a-transition);
+  font-family: 'DM Sans', sans-serif;
+  display: flex; align-items: center; gap: 6px;
+}
+.admin-tab:hover { color: #f0eff5; border-color: var(--a-border2); }
+.admin-tab.active {
+  background: rgba(201,169,110,0.12);
+  border-color: rgba(201,169,110,0.3);
+  color: var(--a-accent);
+}
+.admin-tab-count {
+  background: rgba(255,255,255,0.08); color: var(--a-muted);
+  font-size: 10px; font-weight: 700;
+  padding: 2px 6px; border-radius: 99px;
+}
+
+/* ── Grid helpers ── */
+.admin-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.admin-form-row { margin-bottom: 14px; }
+.admin-flex-end { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
+
+/* ── Product thumb ── */
+.admin-thumb {
+  width: 44px; height: 44px; border-radius: 8px;
+  background: var(--a-surface2); overflow: hidden;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+/* ── Empty state ── */
+.admin-empty { text-align: center; padding: 60px 20px; color: var(--a-muted); }
+.admin-empty-icon { font-size: 38px; margin-bottom: 12px; opacity: 0.5; }
+
+/* ── Category card ── */
+.admin-cat-card {
+  display: flex; align-items: center; gap: 16px; padding: 14px 18px;
+}
+.admin-cat-thumb {
+  width: 48px; height: 48px; border-radius: 10px;
+  background: var(--a-surface2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; overflow: hidden;
+}
+
+/* ── Pagination ── */
+.admin-pagination {
+  display: flex; gap: 6px; align-items: center;
+  margin-top: 0; justify-content: flex-end;
+  padding: 12px 16px;
+}
+.admin-page-btn {
+  min-width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px; font-size: 13px;
+  border: 1px solid var(--a-border);
+  background: transparent; color: var(--a-muted);
+  cursor: pointer; transition: var(--a-transition);
+  font-family: 'DM Sans', sans-serif;
+}
+.admin-page-btn:hover, .admin-page-btn.active {
+  background: var(--a-accent); color: #0a0a0f;
+  border-color: var(--a-accent); font-weight: 600;
+}
+
+/* ── Size / Color pill toggles ── */
+.admin-pill {
+  padding: 5px 12px; border-radius: 7px; font-size: 12px;
+  cursor: pointer; border: 1px solid var(--a-border);
+  background: transparent; color: var(--a-muted);
+  transition: var(--a-transition); font-family: 'DM Sans', sans-serif;
+}
+.admin-pill.selected {
+  border-color: var(--a-accent);
+  background: rgba(201,169,110,0.15);
+  color: var(--a-accent);
+}
+
+/* ── File input ── */
+.admin-file-input {
+  background: var(--a-surface2); border: 1px solid var(--a-border);
+  border-radius: 8px; padding: 8px 12px;
+  color: #f0eff5; font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  width: 100%; cursor: pointer;
+}
+
+/* ── Info row (order detail) ── */
+.admin-info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
+}
+.admin-info-label {
+  font-size: 11px; color: var(--a-muted);
+  font-weight: 600; letter-spacing: 0.04em; margin-bottom: 3px;
+}
+.admin-info-value { font-size: 13px; color: #f0eff5; }
+
+/* ── Order status select ── */
+.admin-status-select {
+  background: var(--a-surface2); border: 1px solid var(--a-border);
+  border-radius: 7px; padding: 5px 8px; color: #f0eff5;
+  font-size: 12px; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; outline: none;
+}
+
+/* ── Scrollbar inside admin ── */
+.admin-panel ::-webkit-scrollbar { width: 5px; height: 5px; }
+.admin-panel ::-webkit-scrollbar-track { background: transparent; }
+.admin-panel ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 99px; }

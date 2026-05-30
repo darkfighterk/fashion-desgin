@@ -1,0 +1,71 @@
+.shop-layout { display: flex; gap: 40px; align-items: flex-start; }
+.shop-sidebar { width: 200px; flex-shrink: 0; position: sticky; top: 84px; }
+.shop-main { flex: 1; min-width: 0; }
+.filter-group { margin-bottom: 32px; }
+.filter-group h4 {
+  font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gray);
+  margin-bottom: 12px; font-weight: 400;
+}
+.filter-btn {
+  display: block; width: 100%;
+  text-align: left; padding: 8px 12px;
+  font-size: 14px; border-radius: var(--radius);
+  color: var(--black); transition: all 0.15s;
+  margin-bottom: 2px;
+}
+.filter-btn:hover { background: var(--cream); }
+.filter-btn.active { background: var(--black); color: white; font-weight: 500; }
+
+.shop-toolbar {
+  display: flex; align-items: center;
+  gap: 16px; margin-bottom: 28px;
+}
+.search-input {
+  flex: 1; padding: 10px 16px;
+  border: 1px solid var(--light-gray); border-radius: var(--radius);
+  font-size: 14px; outline: none;
+  background: white; transition: border-color 0.2s;
+}
+.search-input:focus { border-color: var(--black); }
+.results-count { font-size: 13px; color: var(--gray); white-space: nowrap; }
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 28px 20px;
+}
+.loading-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 28px 20px;
+}
+.skeleton-card {
+  aspect-ratio: 3/5; border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--light-gray) 25%, var(--cream) 50%, var(--light-gray) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+.empty-state {
+  text-align: center; padding: 80px 20px;
+  color: var(--gray);
+}
+.empty-state p { font-size: 16px; margin-bottom: 20px; }
+
+.pagination { display: flex; gap: 8px; justify-content: center; margin-top: 48px; }
+.page-btn {
+  width: 36px; height: 36px; border-radius: var(--radius);
+  font-size: 13px; border: 1px solid var(--light-gray);
+  transition: all 0.2s;
+}
+.page-btn:hover { border-color: var(--black); }
+.page-btn.active { background: var(--black); color: white; border-color: var(--black); }
+
+@media (max-width: 640px) {
+  .shop-layout { flex-direction: column; }
+  .shop-sidebar { width: 100%; position: static; }
+  .filter-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .filter-btn { width: auto; display: inline-block; }
+}

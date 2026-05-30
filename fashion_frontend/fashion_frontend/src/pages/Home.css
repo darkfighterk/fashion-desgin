@@ -1,0 +1,83 @@
+.hero {
+  min-height: 88vh;
+  background: linear-gradient(135deg, var(--cream) 0%, #ede8df 100%);
+  display: flex; align-items: center;
+}
+.hero-content { padding: 80px 0; }
+.hero-sub {
+  font-size: 12px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 9vw, 96px);
+  font-weight: 300; line-height: 1.05;
+  margin-bottom: 24px;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-desc {
+  font-size: 16px; color: var(--gray);
+  max-width: 440px; line-height: 1.7;
+  margin-bottom: 36px;
+}
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.section { padding: 72px 0; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: 32px; font-weight: 300;
+  margin-bottom: 32px;
+}
+.section-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 32px;
+}
+.section-header .section-title { margin-bottom: 0; }
+.view-all { font-size: 13px; letter-spacing: 1px; color: var(--gray); transition: color 0.2s; }
+.view-all:hover { color: var(--black); }
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+.cat-card {
+  display: block; position: relative;
+  border-radius: var(--radius); overflow: hidden;
+  transition: transform 0.25s;
+}
+.cat-card:hover { transform: translateY(-3px); }
+.cat-img {
+  aspect-ratio: 1;
+  background: var(--cream);
+}
+.cat-img img { width: 100%; height: 100%; object-fit: cover; }
+.cat-placeholder { width: 100%; height: 100%; background: var(--light-gray); }
+.cat-name {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.45);
+  color: white; padding: 12px 14px;
+  font-size: 14px; letter-spacing: 1px; font-weight: 400;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 28px 20px;
+}
+
+.ar-banner { margin-bottom: 80px; }
+.ar-banner-inner {
+  background: var(--cream);
+  border-radius: 8px; padding: 52px 48px;
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 40px; flex-wrap: wrap;
+}
+.ar-icons { display: flex; gap: 24px; flex-wrap: wrap; }
+.ar-icon-box {
+  background: white; border-radius: var(--radius);
+  padding: 24px 28px; text-align: center;
+  box-shadow: var(--shadow); min-width: 110px;
+}
+.ar-icon-box p { font-size: 12px; letter-spacing: 1px; margin-top: 10px; color: var(--gray); }
