@@ -28,6 +28,12 @@ def place_order():
     shipping_zip     = data.get("shipping_zip", "")
     payment_method   = data.get("payment_method", "cod")
 
+    # ── Status logic ──────────────────────────────────────
+    # bank transfer → pending (admin must verify payment)
+    # card / cod    → confirmed (payment done or pay on delivery)
+    initial_status = "pending" if payment_method == "bank" else "confirmed"
+    # ──────────────────────────────────────────────────────
+
     db     = get_db()
     cursor = db.cursor()
 
@@ -60,16 +66,16 @@ def place_order():
 
     total = round(total, 2)
 
-    # Create order
+    # Create order — with correct initial status
     cursor.execute(
         """
         INSERT INTO orders
             (user_id, total_amount, shipping_name, shipping_address,
-             shipping_city, shipping_zip, payment_method)
-        VALUES (%s,%s,%s,%s,%s,%s,%s)
+             shipping_city, shipping_zip, payment_method, status)
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
         """,
         (user_id, total, shipping_name, shipping_address,
-         shipping_city, shipping_zip, payment_method)
+         shipping_city, shipping_zip, payment_method, initial_status)
     )
     order_id = cursor.lastrowid
 
@@ -95,10 +101,11 @@ def place_order():
     db.commit()
 
     return jsonify({
-        "status":   True,
-        "message":  "Order placed successfully",
-        "order_id": order_id,
-        "total":    total
+        "status":         True,
+        "message":        "Order placed successfully",
+        "order_id":       order_id,
+        "total":          total,
+        "order_status":   initial_status       # frontend can read this
     }), 201
 
 # =========================

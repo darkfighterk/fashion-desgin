@@ -1,0 +1,18 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# React
+build/
+dist/
+
+# Cache
+.cache/
+
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.env.local
